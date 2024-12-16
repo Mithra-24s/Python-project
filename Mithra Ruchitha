@@ -1,0 +1,117 @@
+class UnitConverter:
+    def __init__(self):
+        # Define conversion rates for various units
+        self.conversions = {
+            "length": {
+                "meters_to_kilometers": 0.001,
+                "kilometers_to_meters": 1000,
+                "meters_to_miles": 0.000621371,
+                "miles_to_meters": 1609.34
+            },
+            "temperature": {
+                "celsius_to_fahrenheit": lambda c: (c * 9/5) + 32,
+                "fahrenheit_to_celsius": lambda f: (f - 32) * 5/9,
+                "celsius_to_kelvin": lambda c: c + 273.15,
+                "kelvin_to_celsius": lambda k: k - 273.15
+            },
+            "weight": {
+                "kg_to_grams": 1000,
+                "grams_to_kg": 0.001,
+                "kg_to_pounds": 2.20462,
+                "pounds_to_kg": 0.453592
+            },
+            "volume": {
+                "liters_to_gallons": 0.264172,
+                "gallons_to_liters": 3.78541,
+                "liters_to_cubic_meters": 0.001,
+                "cubic_meters_to_liters": 1000
+            }
+        }
+
+    def convert_length(self, value, from_unit, to_unit):
+        conversion_key = f"{from_unit}_to_{to_unit}"
+        if conversion_key in self.conversions["length"]:
+            return value * self.conversions["length"][conversion_key]
+        else:
+            return "Invalid length conversion"
+
+    def convert_temperature(self, value, from_unit, to_unit):
+        conversion_key = f"{from_unit}_to_{to_unit}"
+        if conversion_key in self.conversions["temperature"]:
+            return self.conversions["temperature"][conversion_key](value)
+        else:
+            return "Invalid temperature conversion"
+
+    def convert_weight(self, value, from_unit, to_unit):
+        conversion_key = f"{from_unit}_to_{to_unit}"
+        if conversion_key in self.conversions["weight"]:
+            return value * self.conversions["weight"][conversion_key]
+        else:
+            return "Invalid weight conversion"
+
+    def convert_volume(self, value, from_unit, to_unit):
+        conversion_key = f"{from_unit}_to_{to_unit}"
+        if conversion_key in self.conversions["volume"]:
+            return value * self.conversions["volume"][conversion_key]
+        else:
+            return "Invalid volume conversion"
+
+    def main_menu(self):
+        while True:
+            print("\nUnit Converter Menu")
+            print("1. Length")
+            print("2. Temperature")
+            print("3. Weight")
+            print("4. Volume")
+            print("5. Exit")
+            choice = input("Enter your choice: ")
+
+            if choice == "1":
+                self.length_menu()
+            elif choice == "2":
+                self.temperature_menu()
+            elif choice == "3":
+                self.weight_menu()
+            elif choice == "4":
+                self.volume_menu()
+            elif choice == "5":
+                print("Thank you for using the Unit Converter!")
+                break
+            else:
+                print("Invalid choice! Please try again.")
+
+    def length_menu(self):
+        print("\nLength Conversion")
+        from_unit = input("Enter from unit (meters, kilometers, miles): ").lower()
+        to_unit = input("Enter to unit (meters, kilometers, miles): ").lower()
+        value = float(input("Enter the value to convert: "))
+        result = self.convert_length(value, from_unit, to_unit)
+        print(f"{value} {from_unit} = {result} {to_unit}")
+
+    def temperature_menu(self):
+        print("\nTemperature Conversion")
+        from_unit = input("Enter from unit (celsius, fahrenheit, kelvin): ").lower()
+        to_unit = input("Enter to unit (celsius, fahrenheit, kelvin): ").lower()
+        value = float(input("Enter the value to convert: "))
+        result = self.convert_temperature(value, from_unit, to_unit)
+        print(f"{value} {from_unit} = {result} {to_unit}")
+
+    def weight_menu(self):
+        print("\nWeight Conversion")
+        from_unit = input("Enter from unit (kg, grams, pounds): ").lower()
+        to_unit = input("Enter to unit (kg, grams, pounds): ").lower()
+        value = float(input("Enter the value to convert: "))
+        result = self.convert_weight(value, from_unit, to_unit)
+        print(f"{value} {from_unit} = {result} {to_unit}")
+
+    def volume_menu(self):
+        print("\nVolume Conversion")
+        from_unit = input("Enter from unit (liters, gallons, cubic meters): ").lower()
+        to_unit = input("Enter to unit (liters, gallons, cubic meters): ").lower()
+        value = float(input("Enter the value to convert: "))
+        result = self.convert_volume(value, from_unit, to_unit)
+        print(f"{value} {from_unit} = {result} {to_unit}")
+
+# Run the Unit Converter
+converter = UnitConverter()
+converter.main_menu()
